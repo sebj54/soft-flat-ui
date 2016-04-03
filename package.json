@@ -1,0 +1,21 @@
+{
+  "name": "soft-flat-ui",
+  "theme": "ui",
+  "version": "0.1.0",
+  "description": "Flat UI inspired theme with non-aggressive colors",
+  "keywords": [
+    "ui",
+    "theme",
+    "flat-ui",
+    "flat",
+    "designmodo",
+    "non-aggressive",
+    "soft",
+    "clean"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/atom/soft-flat-ui",
+  "engines": {
+    "atom": ">0.40.0"
+  }
+}

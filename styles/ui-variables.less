@@ -1,0 +1,249 @@
+
+// ONE dark UI variables
+// ----------------------------------------------
+
+@import "syntax-variables";
+.ui-syntax-color() { @syntax-background-color: hsl(220,24%,20%); } .ui-syntax-color(); // fallback color
+@ui-syntax-color: @syntax-background-color;
+
+// Color guards -----------------
+@ui-s-h: hue(@ui-syntax-color);
+@ui-s-s: saturation(@ui-syntax-color);
+@ui-s-l: lightness(@ui-syntax-color);
+@ui-inv: 10%; // inverse lightness if below
+
+.ui-hue() when (@ui-s-s = 0) { @ui-hue: 220; } // Use blue hue when no saturation
+.ui-hue() when (@ui-s-s > 0) { @ui-hue: @ui-s-h; }
+.ui-hue();
+
+.ui-saturation() when (@ui-s-h <=  80) { @ui-saturation: min(@ui-s-s,  5%); } // minimize saturation for brown
+.ui-saturation() when (@ui-s-h >   80) and (@ui-s-h <  160) { @ui-saturation: min(@ui-s-s, 12%); } // reduce saturation for green
+.ui-saturation() when (@ui-s-h >= 160) and (@ui-s-l <  @ui-inv) { @ui-saturation: min(@ui-s-s, 48%); } // limit max saturaiotn for very dark backgrounds
+.ui-saturation() when (@ui-s-h >= 160) and (@ui-s-l >= @ui-inv) { @ui-saturation: @ui-s-s; }
+.ui-saturation();
+
+.ui-lightness() when (@ui-s-l <  @ui-inv) {
+  @ui-lightness: @ui-s-l + 8%; // increase lightness when too dark
+  @ui-lightness-border: @ui-lightness*.3;
+}
+.ui-lightness() when (@ui-s-l >= @ui-inv) {
+  @ui-lightness: min(@ui-s-l, 20%); // limit max lightness (for light syntax themes)
+  @ui-lightness-border: @ui-lightness*.6;
+}
+.ui-lightness();
+
+// Main colors -----------------
+@ui-fg:     hsl(@ui-hue, min(@ui-saturation, 18%), max(@ui-lightness*3, 66%) );
+@ui-bg:     hsl(@ui-hue, @ui-saturation, @ui-lightness); // normalized @syntax-background-color
+@ui-border: hsl(@ui-hue, @ui-saturation, @ui-lightness-border);
+
+
+
+
+
+// Official variables
+// These variables must be defined in every theme
+// Source: https://github.com/atom/atom/blob/master/static/variables/ui-variables.less
+// ----------------------------------------------
+
+
+// Text -----------------
+@text-color:             #bdc3c7;
+@text-color-subtle:      #7f8c8d;
+@text-color-highlight:   #ecf0f1;
+@text-color-selected:    @text-color-highlight;
+
+@text-color-info:     #3498db;
+@text-color-success:  #2ecc71;
+@text-color-warning:  #f1c40f;
+@text-color-error:    #e74c3c;
+
+@text-color-ignored: @text-color-subtle;
+@text-color-added: @text-color-success;
+@text-color-renamed: @text-color-info;
+@text-color-modified: @text-color-warning;
+@text-color-removed: @text-color-error;
+
+
+@background-color-highlight: rgba(255, 255, 255, 0.07);
+@background-color-selected: #4182C4;
+
+
+// Background -----------------
+@background-color-info:     #2980b9;
+@background-color-success:  #27ae60;
+@background-color-warning:  #f39c12;
+@background-color-error:    #c0392b;
+
+@background-color-highlight: lighten(@base-background-color, 4%);
+@background-color-selected:  lighten(@base-background-color, 8%);
+
+@app-background-color: @level-3-color;
+
+
+// Base -----------------
+@base-background-color: #34495e;
+@base-border-color:     #2c3e50;
+
+
+// Components -----------------
+@pane-item-background-color:       @base-background-color;
+@pane-item-border-color:           @base-border-color;
+
+@input-background-color:           hsla(0,0%,0%,.2);
+@input-border-color:               @base-border-color;
+
+@tool-panel-background-color:      @level-3-color;
+@tool-panel-border-color:          @base-border-color;
+
+@inset-panel-background-color:     lighten(@level-2-color, 4%);
+@inset-panel-border-color:         fadeout(@base-border-color, 15%);
+
+@panel-heading-background-color:   @level-2-color;
+@panel-heading-border-color:       @base-border-color;
+
+@overlay-background-color:         @level-2-color;
+@overlay-border-color:             @base-border-color;
+
+@button-background-color:          #1abc9c;
+@button-background-color-hover:    #48c9b0;
+@button-background-color-selected: @button-background-color-hover;
+@button-border-color:              @base-border-color;
+
+@tab-bar-background-color:         @level-3-color;
+@tab-bar-border-color:             @base-border-color;
+@tab-background-color:             @level-3-color;
+@tab-background-color-active:      @level-2-color;
+@tab-border-color:                 @base-border-color;
+
+@tree-view-background-color:       @level-3-color;
+@tree-view-border-color:           @base-border-color;
+
+@ui-site-color-1: #2ecc71; // green
+@ui-site-color-2: #3498db; // blue
+@ui-site-color-3: #e67e22; // orange
+@ui-site-color-4: #e74c3c; // pink
+@ui-site-color-5: #f1c40f; // yellow
+
+
+// Sizes -----------------
+@font-size:               12px;
+@input-font-size:         14px;
+@disclosure-arrow-size:   12px;
+
+@component-padding:       10px;
+@component-icon-padding:  5px;
+@component-icon-size:     16px; // needs to stay 16px to look sharpest
+@component-line-height:   25px;
+@component-border-radius: 3px;
+
+@tab-height:              30px;
+
+
+// Font -----------------
+@font-family: 'SF UI Text', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+
+
+
+
+
+// Custom variables
+// These variables are only used in this theme
+// ----------------------------------------------
+
+@ui-theme-name: one-dark-ui;
+
+// Text (Custom) -----------------
+@text-color-faded: fade(@text-color, 20%);
+
+@text-color-added:    @text-color-success;  // green
+@text-color-ignored:  @text-color-subtle;   // faded
+@text-color-modified: @text-color-warning;  // orange
+@text-color-removed:  @text-color-error;    // red
+@text-color-renamed:  @text-color-info;     // blue
+
+
+// Background (Custom) -----------------
+@level-1-color: lighten(@base-background-color, 6%);
+@level-2-color: @base-background-color;
+@level-3-color: darken(@base-background-color, 3%);
+
+
+// Base -----------------
+@base-accent-color: #1abc9c;
+
+
+// Components (Custom) -----------------
+@badge-background-color:            lighten(@background-color-highlight, 6%);
+
+@button-text-color:                 white;
+@button-text-color-selected:        @button-text-color;
+@button-border-color-selected:      @base-border-color;
+
+@checkbox-background-color:         fade(@base-accent-color, 33%);
+
+@input-background-color-focus:      fadein(@input-background-color, 6%);
+@input-selection-color:             darken(@background-color-selected, 6%);
+@input-selection-color-focus:       @background-color-selected;
+
+@key-binding-border-color:          hsla(0,0%,100%,.1);
+@key-binding-background-color:      hsla(0,0%,100%,.1);
+
+@overlay-backdrop-color:            hsla(@ui-hue,@ui-saturation,5%,.5);
+
+@progress-background-color:         @base-accent-color;
+
+@scrollbar-color:                   @level-1-color;
+@scrollbar-background-color:        @level-3-color; // replaced `transparent` with a solid color to test https://github.com/atom/one-light-ui/issues/4
+@scrollbar-color-editor:            contrast(@ui-syntax-color, darken(@ui-syntax-color, 18%), lighten(@ui-syntax-color, 9%) );
+@scrollbar-background-color-editor: @ui-syntax-color;
+
+
+@tab-text-color:                    @text-color-subtle;
+@tab-text-color-active:             @text-color-highlight;
+@tab-text-color-editor:             contrast(@ui-syntax-color, darken(@ui-syntax-color, 50%), @text-color-highlight );
+@tab-background-color-editor:       @ui-syntax-color;
+
+@tooltip-background-color:          @base-accent-color;
+@tooltip-text-color:                contrast(@tooltip-background-color, white, hsl(@ui-hue,100%,10%), 40% );
+@tooltip-text-key-color:            @tooltip-background-color;
+@tooltip-background-key-color:      @tooltip-text-color;
+
+
+// Sizes (Custom) -----------------
+
+@ui-size:                 1em;
+@ui-input-size:           @ui-size*1.15;
+@ui-padding:              @ui-size*1.5;
+@ui-padding-pane:         @ui-size*.5;
+@ui-padding-icon:         @ui-padding/3.3;
+@ui-line-height:          @ui-size*2;
+@ui-tab-height:           @ui-padding*2;
+
+
+
+
+// Packages variables
+// These variables are used to override packages
+// ----------------------------------------------
+
+@settings-list-background-color: darken(@level-2-color, 1.5%);
+@theme-config-box-shadow: inset 0 0 3px hsla(0, 0%, 100%, .4), 0 1px 3px hsla(0, 0%, 0%, .2);
+@theme-config-box-shadow-selected: inset 0 1px 3px hsla(0, 0%, 0%, .1);
+@theme-config-border-selected: hsla(0, 0%, 100%, .75);
+
+@markdown-preview-color: lighten(@text-color, 15%);
+@markdown-preview-background-color: lighten(@base-background-color, 3%);
+@markdown-preview-hr-color: lighten(@base-background-color, 3%);
+@markdown-preview-code-color: lighten(@text-color, 30%);
+@markdown-preview-code-background-color: lighten(@base-background-color, 10%);
+
+
+
+// Debug
+// Output variables to the top of the UI
+// -------------------------------------
+
+// html:before {
+//   content: "@{variable}";
+// }
