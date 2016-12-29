@@ -14,7 +14,7 @@
     "clean"
   ],
   "license": "MIT",
-  "repository": "https://github.com/atom/soft-flat-ui",
+  "repository": "https://github.com/sebj54/soft-flat-ui",
   "engines": {
     "atom": ">0.40.0"
   }
